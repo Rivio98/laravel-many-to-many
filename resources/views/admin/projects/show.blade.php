@@ -13,10 +13,22 @@
                         {{ $technology->name }}
                     @empty
                         Nessuna associata
-                    @endempty
-            </p>
-            <img src="{{ asset('./storage/' . $project->project_image) }}" alt="{{ $project->name }}">
+                    @endforelse
+                </p>
+                <div class="project-image">
+                    @if ($project->project_image)
+                        @if (Str::startsWith($project->project_image, 'http'))
+                            <img src="{{ $project->project_image }}" alt="{{ $project->name }}" class="img-fluid">
+                        @else
+                            <img src="{{ asset('storage/' . $project->project_image) }}" alt="{{ $project->name }}"
+                                class="img-fluid">
+                        @endif
+                    @else
+                        <img src="https://picsum.photos/200/300" alt="Placeholder" class="img-fluid">
+                    @endif
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 @endsection

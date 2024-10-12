@@ -35,6 +35,8 @@ class ProjectController extends Controller
         if ($request->hasFile('project_image')) {
             $path = Storage::disk('public')->put('project_image', $form_data['project_image']);
             $form_data['project_image'] = $path;
+        } else {
+            $form_data['project_image'] = 'https://picsum.photos/200/300';
         }
 
         $project = new Project();
@@ -48,6 +50,7 @@ class ProjectController extends Controller
 
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');
     }
+
 
     public function show(Project $project)
     {
@@ -63,27 +66,33 @@ class ProjectController extends Controller
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
-
         $form_data = $request->validated();
 
-
         if ($request->hasFile('project_image')) {
-
             if (Str::startsWith($project->project_image, 'https') === false) {
                 Storage::disk('public')->delete($project->project_image);
             }
-
-
             $path = Storage::disk('public')->put('project_image', $form_data['project_image']);
             $form_data['project_image'] = $path;
+        } else {
+            if (!$project->project_image) {
+                $form_data['project_image'] = 'https://picsum.photos/200/300';
+            }
         }
 
         $form_data['slug'] = Project::generateSlug($form_data['name']);
 
         $project->update($form_data);
 
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        } else {
+            $project->technologies()->sync([]);
+        }
+
         return redirect()->route('admin.projects.index');
     }
+
     public function destroy(Project $project)
     {
         $project->delete();
