@@ -37,6 +37,18 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-12">
+                            <label for="" class="coltrol-label">Seleziona tecnlogie</label>
+                            <div>
+                                @foreach ($technologies as $technology)
+                                    <div class="form-check-inline">
+                                        <input type="checkbox" name="Technologies[]" id=""
+                                            class="form-check-inline" value="{{ $texhnology->id }}">
+                                        <label class="form-check-lable"><span>{{ $technology->name }}</span></label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         <div class="col-12 py-3">
                             <label for="" class="control-label">Descrizione progetto</label>
                             <textarea name="description" id="" cols="30" rows="10" class="form-control form-control-sm"></textarea>
