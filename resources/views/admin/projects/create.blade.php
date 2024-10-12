@@ -38,12 +38,13 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label for="" class="coltrol-label">Seleziona tecnlogie</label>
+                            <label for="" class="coltrol-label">Seleziona tecnologie</label>
                             <div>
                                 @foreach ($technologies as $technology)
                                     <div class="form-check-inline">
-                                        <input type="checkbox" name="Technologies[]" id=""
-                                            class="form-check-inline" value="{{ $texhnology->id }}">
+                                        <input type="checkbox" name="technologies[]" id=""
+                                            class="form-check-inline"
+                                            value="{{ $technology->id }}"{{ is_array(old('technologies')) && in_array($technology->id, old('technologies')) ? 'checked' : '' }}>
                                         <label class="form-check-lable"><span>{{ $technology->name }}</span></label>
                                     </div>
                                 @endforeach
