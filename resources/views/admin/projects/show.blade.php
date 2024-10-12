@@ -8,11 +8,11 @@
                 <p>{{ $project->slug }}</p>
                 <p>{{ $project->description }}</p>
                 <p>{{ $project->category ? $project->category->name : 'Nessuna Categoria' }}</p>
-                <p>Tecnologia usata:
+                <p>Tecnologia:
                     @forelse ($project->technologies as $technology)
                         {{ $technology->name }}
                     @empty
-                        Nessuna tecnologia associata
+                        Nessuna associata
                     @endempty
             </p>
             <img src="{{ asset('./storage/' . $project->project_image) }}" alt="{{ $project->name }}">
